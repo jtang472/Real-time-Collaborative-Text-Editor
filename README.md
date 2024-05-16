@@ -1,4 +1,4 @@
-# CS4459 Group Project Report
+# Real time Collaborative Text Editor
 
 ## Team Members:
 - Eric Liu
