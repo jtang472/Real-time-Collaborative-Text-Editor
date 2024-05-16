@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./version2/editor_pb2_"
+    ]
+}

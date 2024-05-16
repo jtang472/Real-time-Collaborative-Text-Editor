@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package editor;
+
+// The request message containing the position and text for insertion.
+message InsertRequest {
+  int32 position = 1;
+  string text = 2;
+}
+
+// The request message containing the start and end positions for deletion.
+message DeleteRequest {
+  int32 startPosition = 1;
+  int32 endPosition = 2;
+}
+
+// The response message acknowledging an edit.
+message EditResponse {
+  bool success = 1;
+}
+
+// The request message for fetching the document or its serialized state.
+message FetchRequest {
+  
+}
+
+// The response message containing the current state of the document.
+message FetchResponse {
+  string text = 1;
+}
+
+// Represents a piece in the piece table.
+message Piece {
+  string buffer = 1; // Indicates whether the piece is from the "original" or "add" buffer
+  int32 start = 2;   // The starting position of the piece in the buffer
+  int32 length = 3;  // The length of the piece
+}
+
+// Message to represent the serialized state of a document.
+message SerializedDocumentState {
+  string originalBuffer = 1;            // The content of the original buffer
+  string addBuffer = 2;                 // The content of the add buffer
+  repeated Piece pieces = 3;            // The list of pieces composing the document
+}
+
+// The Editor service definition, including the new FetchSerializedState RPC method.
+service EditorService {
+  rpc InsertText(InsertRequest) returns (EditResponse);
+  rpc DeleteText(DeleteRequest) returns (EditResponse);
+  rpc FetchDocument(FetchRequest) returns (FetchResponse);
+
+  // New RPC method to fetch the serialized state of the document
+  rpc FetchSerializedState(FetchRequest) returns (SerializedDocumentState);
+}

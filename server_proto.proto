@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+// message for a single action performed by a client
+message Action {
+  enum ActionType {
+    ADD = 0;
+    DELETE = 1;
+  }
+
+  ActionType type = 1;
+  int32 position = 2; // Position of cursor
+  string content = 3; // Content to be added or deleted
+  string clientID = 4; // Unique username for each client
+}
+
+message PieceTable {
+    
+    string original_piece = 1;
+    string add_piece = 2;
+    int32 index = 3;
+}
+
+// message for the response from the server
+message ServerResponse {
+  string status = 1; // Status message from the server
+}
+
+// message for requesting the current state of the code
+message GetCodeRequest {
+  // You can include any necessary fields, such as user ID or session ID
+}
+
+// message for the response containing the current state of the code
+message GetCodeResponse {
+  string code = 1; // The current code content
+}
+
+// message for backup replication
+message BackupReplication {
+
+  string replicatedCode = 1; // Replicated code content
+}
+
